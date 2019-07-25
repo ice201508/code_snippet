@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jsonp实现跨域</title>
+</head>
+<body>
+  <div>121</div>
+
+  <script>
+    function json(argc){
+      var callback_name = 'callbackname_' + new Date().getTime();
+      console.log(callback_name)
+      //这个动态创建的额script标签，等下给它加上一个动态的src属性
+      var scriptDom = document.createElement('script');
+      // 后面传递过来的参数必须先转换一下，要name=zs&age=24这种格式的，所以还还需要对argc.params
+      if(!argc.params){
+        argc.params = ''
+      }
+      if(typeof argc.params === 'object'){
+        var tem_arr = [];
+        for(var key in argc.params){
+          tem_arr.push(key + '='+argc.params[key])
+        }
+        argc.params = tem_arr.join('&');
+      }
+      console.log(argc.params)
+
+      // jsonp的请求一般这样
+      // baicu.com/jsonp?callback=回调函数名称&name=张三
+      scriptDom.src = argc.url + '?'+ 'callback='+callback_name+'&'+argc.params;
+
+      document.body.appendChild(scriptDom)
+
+      window[callback_name]= function(res){
+        console.log(res)
+        argc.success(res)
+        delete window.callback_name;
+        document.body.removeChild(scriptDom)
+      }
+    }
+
+    json({
+      url: 'http://localhost:3000/jsonp',
+      params: {firstname: 'zs'}, // 对象和查询参数
+      success(res){
+        console.log('成功的回调函数，这个res就是后台服务器给我们返回的数据:---' + res)
+      }
+    })
+  </script>
+</body>
+</html>
