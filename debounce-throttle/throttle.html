@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>throttle函数节流</title>
+</head>
+
+<body>
+  <input type="text" id="throttle">
+  <script>
+    function ajax(argc) {
+      console.log('函数节流， 输入的在快也只能每隔1S中发送一次请求---', argc)
+    }
+    function throttle(fn, interval = 300) {
+      let flag = true;
+      return function () {
+        if (!flag) return;
+        flag = false;
+        setTimeout(() => {
+          fn.apply(this, arguments);
+          flag = true;
+        }, interval)
+      }
+    }
+
+    var inputDom = document.querySelector('#throttle');
+    var throttleAjax = throttle(ajax, 1000)
+    inputDom.addEventListener('keyup', function (e) {
+      throttleAjax(e.target.value)
+    })
+
+  </script>
+</body>
+
+</html>

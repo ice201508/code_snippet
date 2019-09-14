@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数的防抖</title>
+</head>
+
+<body>
+  <input type="text" class="h-input">
+  <!-- <script>
+    // 模拟一个ajax发请求的方法
+    function ajax(argc) {
+      console.log('我是异步请求获取数据=>', argc)
+    }
+
+    function debounce(cb, delay) {
+      return function (argc) {
+        let that = this;
+        clearTimeout(cb.id);
+        cb.id = setTimeout(function () {
+          cb.call(that, argc)
+        }, delay)
+      }
+    }
+
+    var inputDom = document.querySelector('.h-input');
+    var debounceAjax = debounce(ajax, 500)
+
+    inputDom.addEventListener('input', function (e) {
+      debounceAjax(e.target.value)
+    })
+  </script> -->
+  <script>
+    // 模拟一个ajax发请求的方法
+    function ajax(argc) {
+      console.log('我是异步请求获取数据=>', argc)
+    }
+
+    var timerid = null;
+
+    function debounce(argc) {
+      let that = this;
+      clearTimeout(timerid);
+      timerid = setTimeout(function () {
+        ajax(argc)
+      }, 500)
+    }
+
+    var inputDom = document.querySelector('.h-input');
+
+    inputDom.addEventListener('input', function (e) {
+      debounce(e.target.value)
+    })
+  </script>
+</body>
+
+</html>
