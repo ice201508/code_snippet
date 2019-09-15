@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>常见布局方案em，rem</title>
+  <style>
+    html {
+      font-size: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 通过css根据临界值来动态的设置每一份屏幕宽度的大小， 默认就分15份 */
+    @media screen and (min-width: 320px) {
+      html {
+        font-size: 21.333px;
+      }
+
+      body {
+        background-color: rgb(105, 224, 228);
+      }
+    }
+
+    @media screen and (min-width: 375px) {
+      html {
+        font-size: 25px;
+      }
+
+      body {
+        background-color: rgb(70, 173, 233);
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      html {
+        font-size: 50px;
+      }
+
+      body {
+        background-color: rgb(5, 126, 182);
+      }
+    }
+
+    div.test-em {
+      font-size: 12px;
+      width: 15rem;
+      height: 15rem;
+      background-color: aquamarine;
+    }
+
+    div.test-em p {
+      font-size: 1.5rem;
+      width: 10rem;
+      height: 10rem;
+      background-color: antiquewhite;
+    }
+
+    .self-btn {
+      width: 100%;
+      height: 5rem;
+      font-size: 2rem;
+      border-radius: 4px;
+      background-color: cornflowerblue
+    }
+  </style>
+</head>
+
+<body>
+  <div class="test-em">
+    <p>测试文字大小</p>
+  </div>
+  <div class="self-btn">自定义按钮</div>
+</body>
+
+</html>

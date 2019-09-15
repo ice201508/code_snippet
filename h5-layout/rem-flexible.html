@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    p.h-price {
+      font-size: 1rem;
+      width: 10rem;
+      height: 5rem;
+      background-color: #ccc;
+    }
+  </style>
+  <script>
+    var documentElement = document.documentElement;
+
+    function callback() {
+      var clientWidth = documentElement.clientWidth;
+      // 屏幕宽度大于780，不在放大
+      clientWidth = clientWidth < 750 ? clientWidth : 750;
+      documentElement.style.fontSize = clientWidth / 10 + 'px';
+    }
+
+    document.addEventListener('DOMContentLoaded', callback);
+    window.addEventListener('resize', callback);
+  </script>
+</head>
+
+<body>
+  <div>
+    <p class="h-price">测试模块大小改变</p>
+  </div>
+</body>
+
+</html>
