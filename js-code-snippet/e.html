@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="http://www.kancloud.cn/dennis/tgjavascript/241856">js书籍</a>
+	<script>
+		//去掉字符串前后的空格
+		function fTrim(str){
+			if(str && typeof str === "string"){
+				return str.replace(/(^\s*)|(\s*$)/g, "");
+			}
+		}
+
+		//  尽量使用单引号（'），只在JSON文件中使用双引号
+		// 复制数组，区分不同的浏览器 (分为浅拷贝和 深拷贝)
+		//webkit浏览器使用 arr.concat() ，其他浏览器arr.slice(0)。 都只是返回一个副本，不会改变原数组
+		//concat不适合用来合并两个大型数组，因为它将消耗大量内存来储存新创建的数组  使用 Array.prototype.push.apply(arr1, arr2);  这样不会创建新数组，同时减少内存的使用
+		
+		//排序效率
+		// 稳定性和非稳定性排序 (即相等的数经过某种排序后仍能保持之前的顺序--稳定排序)
+		//内排序和外排序 (排序中所有数都在内存叫内排序)
+		//时间复杂度 (指计算工作量)
+		//空间复杂度 (所需的内存空间)
+
+		//大数据量时一般用快速排序
+
+		//冒泡排序
+		//var arr = [12, 25, 3,16,31, 9];
+		var arr = [];
+		var temp =0;
+		//总次数
+		var m=0;
+		//轮数
+		var n=0;
+
+		for(let i =0 ; i< 1000; i++){
+			arr.push(Math.floor(Math.random() * 1000));
+		}
+
+		function bubble(arr){
+			console.log("冒泡开始时间：", Date.now());
+			var tmp_arr = arr.concat();
+			var length = tmp_arr.length;
+			for(var i=0; i<length-1; i++){  //比较轮数   外循环是趟数，内循环是一趟比较多少次
+				//浪费资源了，多了几次无用的比较，但便于理解，如自己和自己比较。已经比较过的还会和排好序的比较
+				for(var j =0; j<tmp_arr.length-1-i; j++){  //比较次数, 比较一轮就确定一个最大的数，也就不需要在比，即比较一个数少一遍比较
+					m++;
+					if(tmp_arr[j] > tmp_arr[j+1]) {
+						temp = tmp_arr[j];
+						tmp_arr[j] = tmp_arr[j+1];
+						tmp_arr[j+1] = temp;
+					}
+				}
+				n++;
+			}
+			console.log("冒泡结束时间：", Date.now());
+			return tmp_arr;
+		}
+		
+
+		//console.log(bubble(arr));
+		// console.log(m);
+		// console.log(n);
+
+		//优化 冒泡排序
+		//arr = [3, 9, 12, 25,16,31];
+		temp = 0;
+		//总次数
+		var m=0;
+		//轮数
+		var n=0;
+		var bool=true;
+		var len = arr.length;
+
+		function bubble_2(arr){
+			var tmp_arr = arr.concat();
+			for(var i = 0; i< len-1; i++){
+				bool=true;
+				for(var j =0; j< len-1-i; j++){
+					m++;
+					if(tmp_arr[j]> tmp_arr[j+1]){
+						temp = tmp_arr[j];
+						tmp_arr[j] = tmp_arr[j+1];
+						tmp_arr[j+1] = temp;
+						bool= false;
+					}
+				}
+				n++;
+				//如果一轮比较没有元素交换，则可以认为排序完成，可以跳出循环
+				//这里最终只需要循环9次，效率大大提高
+				if(bool) {
+					//break;
+				}
+			}
+			return tmp_arr;
+		}
+		
+		console.time('ss');
+		console.log(bubble_2(arr));
+		console.timeEnd('ss');
+		console.log(m);
+		console.log(n);
+
+		// for(var x in arr){
+		// 	if(x == 3){
+		// 		continue; //break 两者的不同
+		// 	}
+		// 	//console.log('break--continue ',arr[x]);
+		// }
+
+		//--------------------------------快速排序
+		//缺点是需要另外声明两个数组，浪费了内存空间资源。
+		//var arr_new = [85, 24, 63, 45, 17, 31, 96, 50];
+		var quickSort = function(arr) {
+			//定义一个通用方法，首先是参数校验
+			if(typeof arr === "object" && arr instanceof Array == true){
+				//var length = arr.length;
+				if(arr.length <= 1) {
+					return arr;
+				} else {
+					var pivorIndex = Math.floor(arr.length/2);
+					var pivor = arr.splice(pivorIndex, 1)[0];
+					var left =[];
+					var right = [];
+
+					var length = arr.length;
+					for(var i=0; i< arr.length; i++){
+						if(arr[i] < pivor) {
+							left.push(arr[i]);
+						} else {
+							right.push(arr[i]);
+						}
+					}
+
+					return quickSort(left).concat([pivor], quickSort(right));
+				}
+			} else {
+				return arr;
+			}
+		}
+
+		// console.time('time');
+		// //console.log("快排开始时间：", Date.now());
+		// var s = quickSort(arr);
+		// console.timeEnd('time');
+		// //console.log("快排结束时间：", Date.now());
+		// console.log(s);
+
+	</script>
+</body>
+</html>
