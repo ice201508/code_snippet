@@ -1,8 +1,11 @@
+// https://www.cnblogs.com/leaf930814/p/9014200.html
+
 function Public() {
   //存放订阅者信息
   this.subscribers = []
   //添加订阅者
   this.addSubscriber = function(subscriber) {
+    console.log('subscriber=>', subscriber)
     //保证一个订阅者只能订阅一次
     let isExist = this.subscribers.some(function(item) {
       return item == subscriber
@@ -16,6 +19,7 @@ function Public() {
 
   //发布消息
   this.deliver = function(data) {
+    console.log('this=>', this)
     this.subscribers.forEach(function(fn) {
       fn(data)
     })
@@ -39,10 +43,10 @@ let publisher = new Public()
 
 //添加订阅者
 publisher.addSubscriber(a)
-publisher.addSubscriber(b).addSubscriber(c)
+// publisher.addSubscriber(b).addSubscriber(c)
 
 //公众号发布消息
 publisher.deliver('这是公众号推送的第1条新信息！')
-publisher
-  .deliver('这是公众号推送的第2条新信息！')
-  .deliver('这是公众号推送的第3条新信息！')
+// publisher
+//   .deliver('这是公众号推送的第2条新信息！')
+//   .deliver('这是公众号推送的第3条新信息！')

@@ -19,5 +19,5 @@ function quickSort(arr) {
 
   return [...quickSort(left), middleItem, ...quickSort(right)]
 }
-
-console.log(quickSort(arr))
+arr = quickSort(arr)
+console.log(arr)
