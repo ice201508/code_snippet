@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>节流</title>
+  </head>
+  <body>
+    <button id="mybtn">节流</button>
+    <script>
+      var btnDom = document.querySelector("#mybtn");
+      function ajax() {
+        console.log("这是模拟的请求");
+      }
+
+      // 前端常见的异步任务： DOM事件； 定时器；ajax； 动画
+      var flag = true;
+      function throttle() {
+        if (flag) {
+          flag = false;
+          setTimeout(() => {
+            ajax();
+            flag = true;
+          }, 500);
+        }
+      }
+
+      btnDom.addEventListener("click", () => {
+        throttle();
+      });
+    </script>
+  </body>
+</html>

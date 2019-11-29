@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 普通数据类型和复杂数据类型
+      var obj1 = {
+        name: "jim",
+        age: [12, 13, 14]
+      };
+      // 地址存在栈里面， 值的引用储存在堆里面
+      // var obj2 = obj1;
+      // obj1.age[1] = { addr: 12 };
+      // console.log(obj1, obj2);
+
+      // 下面这一种函数的方式   有个js的工具函数库  lodash
+
+      function deepClone(source) {
+        if (typeof source === "object") {
+          // 下面一步是判断传递进函数的参数是 数组还是对象   instanceOf
+          var target = source.constructor.name === "Array" ? [] : {};
+          for (var key in source) {
+            // 下面这一步赋值 是判断当前 对应key的value值是 复杂数据类型还是简单数据类型
+            if (typeof source[key] === "object") {
+              target[key] = deepClone(source[key]);
+            } else {
+              target[key] = source[key];
+            }
+          }
+          return target;
+        } else {
+          throw new Error("你传递的参数有问题");
+        }
+      }
+
+      var obj2 = deepClone(obj1);
+      obj1.age[1] = { addr: 12 };
+      console.log(obj1, obj2);
+      console.log(typeof JSON.stringify([1, 2, 3]));
+
+      // 第二种简单的深拷贝
+      // var obj3 = JSON.parse(JSON.stringify(obj1))
+    </script>
+  </body>
+</html>

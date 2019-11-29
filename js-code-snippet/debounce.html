@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>防抖</title>
+  </head>
+  <body>
+    <input type="text" id="myinput" />
+
+    <script>
+      // webapi
+      // 防抖的使用场景： 在搜索框里面， 如果两次输入间隔大于1s钟才会发起一个请求，
+      // 如果两次间隔小于1S就会触发clearTimeout清楚之前的定时器，也就不会发请求 .debounce
+      var inputDom = document.querySelector("#myinput");
+      function ajax(param) {
+        console.log("这是模拟的一个益步请求：", param);
+      }
+
+      var timerId = null;
+      function debounce(param) {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+          ajax(param);
+        }, 1000);
+      }
+
+      inputDom.addEventListener("input", e => {
+        debounce(e.target.value);
+      });
+    </script>
+  </body>
+</html>
