@@ -141,7 +141,7 @@
        data: 'foobar'
      }, 'secret', { expiresIn: '1h' });
       //第三种形式使用时
-      在expiresIn，notBefore，audience，subject，issuer没有默认值时。也可以直接在payload中用exp，nbf，aud，sub和iss分别表示，但是你不能在这两个地方同时设置。
+      在expiresIn，notBefore，audience，subject，issuer没有默认值时。也可以直接在payload中用exp，nbf，aud，sub和iss分别表示，但是你不能在这两个地方同时设置。设置
      ```
 
 7. jwt的数据结构 Header.Payload.Signature 一个很长的用.分隔的字符串
